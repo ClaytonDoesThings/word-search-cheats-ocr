@@ -26,7 +26,8 @@ var words = [];
 
 var results;
 
-var _S = 0; 
+var _S = 0;
+var colors = [];
 
 var keyboardMap = [
 	"A", // [65]

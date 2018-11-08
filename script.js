@@ -172,12 +172,16 @@ function sourceImgCF () {
 			let cW = w/ws[0].length;
 			let cH = h/ws.length;
 			for (let i = 0; i < results.length; i++) {
+				if (colors[i] === undefined) {
+					colors[i] = [Math.random()*256, Math.random()*256, Math.random()*256];
+				}
+				c = colors[i];
 				for (let j = 0; j < results[i].positions.length; j++) {
 					let pos = results[i].positions[j];
 					let sPos = pos[0];
 					console.log(sPos[0]*cW);
 					let ePos = pos[1];
-					sourceImgC.stroke(255, 255, 0, 255*0.375);
+					sourceImgC.stroke(c[0], [1], c[2], 255*0.375);
 					sourceImgC.strokeWeight((cW+cH)/2*0.9);
 					sourceImgC.line(sPos[0]*cW+cW/2, sPos[1]*cH+cH/2, ePos[0]*cW+cW/2, ePos[1]*cH+cH/2);
 				}
@@ -293,9 +297,9 @@ function keyPressed () {
 			}
 			cursorY++;
 			cursorX = -1;
-		} else if (keyCode >= 65 && keyCode <= 90) {
+		} else if (keyCode >= 65 && keyCode <= 90 || keyCode === 32) {
 			let s = t[cursorY];
-			t[cursorY] = s.substr(0, cursorX+1) + keyboardMap[keyCode-65] + s.substr(cursorX+1);
+			t[cursorY] = s.substr(0, cursorX+1) + (keyCode === 32 ? " " : keyboardMap[keyCode-65]) + s.substr(cursorX+1);
 			if (t[cursorY][cursorX+1]) {
 				cursorX++;
 			}
